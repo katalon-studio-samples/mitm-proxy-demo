@@ -13,6 +13,8 @@ You should be able to follow the standard instructions for [installing](https://
 
 You can see the project settings that configure Katalon Studio scripts to connect to mitmproxy running locally on port 8080 by selecting Project / Settings then Desired Capabilities / Web UI / Chrome in the Project Settings dialog.
 
+<img width="862" alt="Dictionary_Property_Builder_and_Project_Settings_and_Katalon_Studio_-_8_5_0-43c337de_-_mitm_proxy_demo_-__Location___Users_coty_Katalon_Studio_mitm-proxy-demo_" src="https://user-images.githubusercontent.com/1128/192877850-ab9ef679-4549-4004-94e7-09de62ee8bc3.png">
+
 # Configuring proxy via code
 
 You can also configure proxy usage in a Katalon Studio test using code. An example can be seen in the "Proxy Test - Code" test case in this project.
