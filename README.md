@@ -17,7 +17,7 @@ You can see the project settings that configure Katalon Studio scripts to connec
 
 # Configuring proxy via code
 
-You can also configure proxy usage in a Katalon Studio test using code. An example can be seen in the "Proxy Test - Code" test case in this project.
+You can also configure proxy usage in a Katalon Studio test using code. An example can be seen in the [Proxy Test - Code](Scripts/Proxy%20Test%20-%20Code/Script1664378871488.groovy) test case in this project.
 
 # Bypassing SSL warnings
 
