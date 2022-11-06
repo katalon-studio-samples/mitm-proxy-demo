@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebElementEntity>
+   <description></description>
+   <name>pre_Message</name>
+   <tag></tag>
+   <elementGuidId>2f458ca9-3783-4650-a673-50a18ecbbda5</elementGuidId>
+   <selectorCollection>
+      <entry>
+         <key>CSS</key>
+         <value>pre</value>
+      </entry>
+      <entry>
+         <key>XPATH</key>
+         <value>//pre</value>
+      </entry>
+   </selectorCollection>
+   <selectorMethod>XPATH</selectorMethod>
+   <useRalativeImagePath>true</useRalativeImagePath>
+   <webElementProperties>
+      <isSelected>false</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>tag</name>
+      <type>Main</type>
+      <value>pre</value>
+      <webElementGuid>57fbd518-60f7-4478-8709-0449ec8c90f2</webElementGuid>
+   </webElementProperties>
+   <webElementProperties>
+      <isSelected>true</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>text</name>
+      <type>Main</type>
+      <value>Hello, client.example.com!</value>
+      <webElementGuid>844efc13-744c-4cf1-956b-e1edf5b442df</webElementGuid>
+   </webElementProperties>
+   <webElementProperties>
+      <isSelected>false</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>xpath</name>
+      <type>Main</type>
+      <value>/html[1]/body[1]/pre[1]</value>
+      <webElementGuid>3ffd8ee2-b0e9-4df7-8e1c-04f7d4083557</webElementGuid>
+   </webElementProperties>
+   <webElementXpaths>
+      <isSelected>false</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>xpath:position</name>
+      <type>Main</type>
+      <value>//pre</value>
+      <webElementGuid>ef5e46f2-549e-4885-9e83-641ea5cd9ced</webElementGuid>
+   </webElementXpaths>
+</WebElementEntity>

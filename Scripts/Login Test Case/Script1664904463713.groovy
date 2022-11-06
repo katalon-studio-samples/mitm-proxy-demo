@@ -17,6 +17,6 @@ import com.kms.katalon.core.windows.keyword.WindowsBuiltinKeywords as Windows
 import internal.GlobalVariable as GlobalVariable
 import org.openqa.selenium.Keys as Keys
 
-WebUI.navigateToUrl('https://local.foobar3000.com:8043')
+import com.kms.katalon.util.CryptoUtil;
 
-WebUI.verifyElementText(findTestObject('Object Repository/Page/pre_Message'), 'Hello, client.example.net!')
+println(CryptoUtil.decode(CryptoUtil.getDefault('JV/mE0n3QFQ=')))

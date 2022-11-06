@@ -44,15 +44,25 @@ import internal.GlobalVariable as GlobalVariable
 import org.openqa.selenium.Keys as Keys
 
 import com.kms.katalon.core.webui.driver.DriverFactory
+import com.kms.katalon.core.webui.driver.WebUIDriverType
 import org.openqa.selenium.Proxy
+import org.openqa.selenium.WebDriver
 import org.openqa.selenium.remote.DesiredCapabilities
 import org.openqa.selenium.remote.CapabilityType
 import org.openqa.selenium.chrome.ChromeOptions
 import org.openqa.selenium.chrome.ChromeDriver
+import org.openqa.selenium.firefox.FirefoxOptions
+import org.openqa.selenium.firefox.FirefoxDriver
+import org.openqa.selenium.safari.SafariOptions
+import org.openqa.selenium.safari.SafariDriver
+import org.openqa.selenium.edge.EdgeOptions
+import org.openqa.selenium.edge.EdgeDriver
 
 import net.lightbody.bmp.BrowserMobProxy;
 import net.lightbody.bmp.BrowserMobProxyServer;
 import net.lightbody.bmp.client.ClientUtil;
+import net.lightbody.bmp.proxy.dns.AdvancedHostResolver;
+import net.lightbody.bmp.proxy.jetty.util.*;
 
 
 /**
@@ -66,27 +76,79 @@ import net.lightbody.bmp.client.ClientUtil;
 def setUp() {
 	// Put your code here.
 	// start the proxy
-	BrowserMobProxy proxy = new BrowserMobProxyServer();
+    String clientCertPath = "/Users/coty/Code/katalon/demo/nodejs-ssl-trusted-peer-example/certs/client/my-app-client.p12";
+    String certificatePassword = "secret";
+    String hostname = "local.foobar3000.com";
+    
+	BrowserMobProxy proxy = new SslBrowserMobProxyServer(
+        clientCertPath,
+        certificatePassword,
+        hostname
+    );
+    proxy.setTrustAllServers(true);
 	proxy.start(0);
+    
+    AdvancedHostResolver advancedHostResolver = proxy.getHostNameResolver();
+    advancedHostResolver.remapHost("local.foobar3000.com", "127.0.0.1");
+    advancedHostResolver.remapHost("google.com", "142.251.32.174");
+    proxy.setHostNameResolver(advancedHostResolver);
+    
+    proxy.addRequestFilter({request, contents, messageInfo -> 
+        return null;
+    });
 	
 	// get the Selenium proxy object
 	Proxy seleniumProxy = ClientUtil.createSeleniumProxy(proxy);
+	    
+    WebUIDriverType driverType = DriverFactory.getExecutedBrowser()
+    println(driverType)
+    
+    WebDriver driver = null
+    switch (driverType) {
+        case WebUIDriverType.CHROME_DRIVER:
+            ChromeOptions options = new ChromeOptions()
+        
+            options.setAcceptInsecureCerts(true)
+            options.setProxy(seleniumProxy)
+        
+            System.setProperty('webdriver.chrome.driver', DriverFactory.getChromeDriverPath())
+        
+            // start the browser up
+            driver = new ChromeDriver(options)
+            break
+        case WebUIDriverType.FIREFOX_DRIVER:
+            FirefoxOptions options = new FirefoxOptions()
+        
+            options.setAcceptInsecureCerts(true)     
+            options.setProxy(seleniumProxy)
+        
+            // start the browser up
+            driver = new FirefoxDriver(options)
+            break
+        case WebUIDriverType.SAFARI_DRIVER:
+            SafariOptions options = new SafariOptions()
+        
+//            options.setAcceptInsecureCerts(true)
+            //TODO Safari doesn't seemt to accept proxy options
+            options.setProxy(seleniumProxy)
+        
+            // start the browser up
+            driver = new SafariDriver(options)
+            break
+        case WebUIDriverType.EDGE_CHROMIUM_DRIVER:
+            EdgeOptions options = new EdgeOptions()
+        
+    //        options.setAcceptInsecureCerts(true)
+            options.setProxy(seleniumProxy)
+            
+            System.setProperty('webdriver.edge.driver', DriverFactory.getEdgeDriverPath())
+        
+            // start the browser up
+            driver = new EdgeDriver(options)
+            break      
+    }
 	
-	// configure it as a desired capability
-	DesiredCapabilities capabilities = new DesiredCapabilities();
-	capabilities.setCapability(CapabilityType.PROXY, seleniumProxy);
-	
-	ChromeOptions options = new ChromeOptions();
-	options.setAcceptInsecureCerts(true)
-	
-	capabilities.setCapability(ChromeOptions.CAPABILITY, options);
-	
-	System.setProperty("webdriver.chrome.driver", DriverFactory.getChromeDriverPath())
-	
-	// start the browser up
-	ChromeDriver driver = new ChromeDriver(capabilities);
-	
-	DriverFactory.changeWebDriver(driver)
+	DriverFactory.changeWebDriver(driver);
 }
 
 /**
