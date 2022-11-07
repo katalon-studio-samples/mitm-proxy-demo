@@ -19,4 +19,4 @@ import org.openqa.selenium.Keys as Keys
 
 WebUI.navigateToUrl('https://local.foobar3000.com:8043')
 
-WebUI.verifyElementText(findTestObject('Object Repository/Page/pre_Message'), 'Hello, client.example.net!')
+WebUI.verifyElementText(findTestObject('Object Repository/Page/pre_Message'), "Hello, ${GlobalVariable.g_certificateCN}!")

@@ -76,8 +76,8 @@ import net.lightbody.bmp.proxy.jetty.util.*;
 def setUp() {
 	// Put your code here.
 	// start the proxy
-    String clientCertPath = "/Users/coty/Code/katalon/demo/nodejs-ssl-trusted-peer-example/certs/client/my-app-client.p12";
-    String certificatePassword = "secret";
+    String clientCertPath = GlobalVariable.g_clientCertPath;
+    String certificatePassword = GlobalVariable.g_certificatePassword;
     String hostname = "local.foobar3000.com";
     
 	BrowserMobProxy proxy = new SslBrowserMobProxyServer(
@@ -128,8 +128,6 @@ def setUp() {
         case WebUIDriverType.SAFARI_DRIVER:
             SafariOptions options = new SafariOptions()
         
-//            options.setAcceptInsecureCerts(true)
-            //TODO Safari doesn't seemt to accept proxy options
             options.setProxy(seleniumProxy)
         
             // start the browser up
@@ -138,7 +136,6 @@ def setUp() {
         case WebUIDriverType.EDGE_CHROMIUM_DRIVER:
             EdgeOptions options = new EdgeOptions()
         
-    //        options.setAcceptInsecureCerts(true)
             options.setProxy(seleniumProxy)
             
             System.setProperty('webdriver.edge.driver', DriverFactory.getEdgeDriverPath())
