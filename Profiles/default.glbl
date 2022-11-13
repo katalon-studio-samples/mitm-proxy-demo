@@ -19,4 +19,9 @@
       <initValue>'client.example.net'</initValue>
       <name>g_certificateCN</name>
    </GlobalVariableEntity>
+   <GlobalVariableEntity>
+      <description></description>
+      <initValue>null</initValue>
+      <name>g_proxy</name>
+   </GlobalVariableEntity>
 </GlobalVariableEntities>

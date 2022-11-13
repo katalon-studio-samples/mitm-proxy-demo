@@ -17,4 +17,5 @@ dependencies {
   // compile 'io.rest-assured:json-path:3.2.0'
   // JSON Schema Validation
   // compile 'io.rest-assured:json-schema-validator:3.2.0'
+  compile 'com.bettercloud:vault-java-driver:5.1.0'
 }

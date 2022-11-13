@@ -64,6 +64,7 @@ import net.lightbody.bmp.client.ClientUtil;
 import net.lightbody.bmp.proxy.dns.AdvancedHostResolver;
 import net.lightbody.bmp.proxy.jetty.util.*;
 
+import com.bettercloud.vault.*
 
 /**
  * Some methods below are samples for using SetUp/TearDown in a test suite.
@@ -74,10 +75,23 @@ import net.lightbody.bmp.proxy.jetty.util.*;
  */
 @SetUp(skipped = false) // Please change skipped to be false to activate this method.
 def setUp() {
+    VaultConfig config = new VaultConfig().address('http://127.0.0.1:8200').token('hvs.TVzcs1M100VuzSFDlAhyKxLD').build()
+    
+    // You may choose not to provide a root token initially, if you plan to use
+    // the Vault driver to retrieve one programmatically from an auth backend.
+    // VaultConfig config = new VaultConfig().address('http://127.0.0.1:8200').build()
+    
+    final Vault vault = new Vault(config)
+    
+    // Read operation
+    final String certificatePassword = vault.logical()
+                           .read("secret/my-app-client2.p12")
+                           .getData().get("password")
+    
 	// Put your code here.
 	// start the proxy
     String clientCertPath = GlobalVariable.g_clientCertPath;
-    String certificatePassword = GlobalVariable.g_certificatePassword;
+//    String certificatePassword = GlobalVariable.g_certificatePassword;
     String hostname = "local.foobar3000.com";
     
 	BrowserMobProxy proxy = new SslBrowserMobProxyServer(
@@ -100,52 +114,7 @@ def setUp() {
 	// get the Selenium proxy object
 	Proxy seleniumProxy = ClientUtil.createSeleniumProxy(proxy);
 	    
-    WebUIDriverType driverType = DriverFactory.getExecutedBrowser()
-    println(driverType)
-    
-    WebDriver driver = null
-    switch (driverType) {
-        case WebUIDriverType.CHROME_DRIVER:
-            ChromeOptions options = new ChromeOptions()
-        
-            options.setAcceptInsecureCerts(true)
-            options.setProxy(seleniumProxy)
-        
-            System.setProperty('webdriver.chrome.driver', DriverFactory.getChromeDriverPath())
-        
-            // start the browser up
-            driver = new ChromeDriver(options)
-            break
-        case WebUIDriverType.FIREFOX_DRIVER:
-            FirefoxOptions options = new FirefoxOptions()
-        
-            options.setAcceptInsecureCerts(true)     
-            options.setProxy(seleniumProxy)
-        
-            // start the browser up
-            driver = new FirefoxDriver(options)
-            break
-        case WebUIDriverType.SAFARI_DRIVER:
-            SafariOptions options = new SafariOptions()
-        
-            options.setProxy(seleniumProxy)
-        
-            // start the browser up
-            driver = new SafariDriver(options)
-            break
-        case WebUIDriverType.EDGE_CHROMIUM_DRIVER:
-            EdgeOptions options = new EdgeOptions()
-        
-            options.setProxy(seleniumProxy)
-            
-            System.setProperty('webdriver.edge.driver', DriverFactory.getEdgeDriverPath())
-        
-            // start the browser up
-            driver = new EdgeDriver(options)
-            break      
-    }
-	
-	DriverFactory.changeWebDriver(driver);
+    GlobalVariable.g_proxy = seleniumProxy;
 }
 
 /**
