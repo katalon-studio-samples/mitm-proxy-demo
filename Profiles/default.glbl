@@ -24,4 +24,9 @@
       <initValue>null</initValue>
       <name>g_proxy</name>
    </GlobalVariableEntity>
+   <GlobalVariableEntity>
+      <description></description>
+      <initValue>'local.foobar3000.com'</initValue>
+      <name>g_hostname</name>
+   </GlobalVariableEntity>
 </GlobalVariableEntities>
