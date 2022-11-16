@@ -86,7 +86,7 @@ def setUp() {
     String hostname = GlobalVariable.g_hostname
 	String secretPath = "secret/${clientCertFilename}"
 	
-	VaultConfig config = new VaultConfig().address('http://127.0.0.1:8200').token('hvs.IWphVIMz5N9bHmoKLwxKLKGG').build()
+	VaultConfig config = new VaultConfig().address(System.getenv('VAULT_ADDR')).token(System.getenv('VAULT_TOKEN')).build()
 	
 	// You may choose not to provide a root token initially, if you plan to use
 	// the Vault driver to retrieve one programmatically from an auth backend.
