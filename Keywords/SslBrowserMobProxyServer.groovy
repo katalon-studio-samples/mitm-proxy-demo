@@ -13,7 +13,7 @@ import java.security.*;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
-import com.katalon.proxy.filters.TracingFilter;
+import com.katalon.proxy.filters.ClientCertFilter;
 
 public class SslBrowserMobProxyServer extends BrowserMobProxyServer {
     private String clientCertPath;
@@ -61,7 +61,7 @@ public class SslBrowserMobProxyServer extends BrowserMobProxyServer {
         super.addBrowserMobFilters();
         this.addHttpFilterFactory(new HttpFiltersSourceAdapter() {
                     public HttpFilters filterRequest(HttpRequest originalRequest, ChannelHandlerContext ctx) {
-                        return new TracingFilter(originalRequest, ctx, sslContext, hostname);
+                        return new ClientCertFilter(originalRequest, ctx, sslContext, hostname);
                     }
                 });
     }

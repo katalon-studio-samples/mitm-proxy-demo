@@ -22,10 +22,10 @@ import java.security.cert.X509Certificate;
 import java.util.StringTokenizer;
 import java.util.stream.Stream;
 
-public class TracingFilter extends HttpsAwareFiltersAdapter {
+public class ClientCertFilter extends HttpsAwareFiltersAdapter {
     private SSLContext sslContext;
     private String hostname;
-    public TracingFilter(HttpRequest originalRequest, ChannelHandlerContext ctx, SSLContext sslContext, String hostname) {
+    public ClientCertFilter(HttpRequest originalRequest, ChannelHandlerContext ctx, SSLContext sslContext, String hostname) {
         super(originalRequest, ctx);
         this.sslContext = sslContext;
         this.hostname = hostname;
