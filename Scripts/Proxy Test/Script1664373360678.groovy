@@ -38,9 +38,9 @@ import net.lightbody.bmp.proxy.jetty.util.*
 
 WebUI.openBrowser('')
 
-if (GlobalVariable.g_proxy) {
+if (GlobalVariable.proxy) {
     // get the Selenium proxy object
-    Proxy seleniumProxy = GlobalVariable.g_proxy
+    Proxy seleniumProxy = GlobalVariable.proxy
 
     WebUIDriverType driverType = DriverFactory.getExecutedBrowser()
 
@@ -95,7 +95,7 @@ if (GlobalVariable.g_proxy) {
 
 WebUI.navigateToUrl('https://local.foobar3000.com:8043')
 
-WebUI.verifyElementText(findTestObject('Object Repository/Page/pre_Message'), "Hello, ${GlobalVariable.g_certificateCN}!")
+WebUI.verifyElementText(findTestObject('Object Repository/Page/pre_Message'), "Hello, ${GlobalVariable.certificateCN}!")
 
 WebUI.closeBrowser()
 

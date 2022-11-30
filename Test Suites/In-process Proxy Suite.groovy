@@ -80,10 +80,10 @@ import java.nio.file.Paths;
 def setUp() {
 	// Put your code here.
 	// start the proxy
-    String clientCertPath = GlobalVariable.g_clientCertPath;
+    String clientCertPath = GlobalVariable.clientCertPath;
 	Path clientCertPathObj = Paths.get(clientCertPath)
 	String clientCertFilename = clientCertPathObj.getFileName().toString()
-    String hostname = GlobalVariable.g_hostname
+    String hostname = GlobalVariable.hostname
 	String secretPath = "secret/${clientCertFilename}"
 	
 	VaultConfig config = new VaultConfig().address(System.getenv('VAULT_ADDR')).token(System.getenv('VAULT_TOKEN')).build()
@@ -119,7 +119,7 @@ def setUp() {
 	// get the Selenium proxy object
 	Proxy seleniumProxy = ClientUtil.createSeleniumProxy(proxy);
 	    
-    GlobalVariable.g_proxy = seleniumProxy;
+    GlobalVariable.proxy = seleniumProxy;
 }
 
 /**

@@ -7,26 +7,26 @@
    <GlobalVariableEntity>
       <description></description>
       <initValue>'/Users/coty/Code/katalon/demo/nodejs-ssl-trusted-peer-example/certs/client/my-app-client.p12'</initValue>
-      <name>g_clientCertPath</name>
-   </GlobalVariableEntity>
-   <GlobalVariableEntity>
-      <description></description>
-      <initValue>'secret'</initValue>
-      <name>g_certificatePassword</name>
+      <name>clientCertPath</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>
       <description></description>
       <initValue>'client.example.net'</initValue>
-      <name>g_certificateCN</name>
+      <name>certificateCN</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>
       <description></description>
       <initValue>null</initValue>
-      <name>g_proxy</name>
+      <name>proxy</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>
       <description></description>
       <initValue>'local.foobar3000.com'</initValue>
-      <name>g_hostname</name>
+      <name>hostname</name>
+   </GlobalVariableEntity>
+   <GlobalVariableEntity>
+      <description></description>
+      <initValue>''</initValue>
+      <name>certificatePassword</name>
    </GlobalVariableEntity>
 </GlobalVariableEntities>
