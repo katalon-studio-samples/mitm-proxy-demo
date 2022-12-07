@@ -80,25 +80,29 @@ import java.nio.file.Paths;
 def setUp() {
 	// Put your code here.
 	// start the proxy
+
     String clientCertPath = GlobalVariable.clientCertPath;
-	Path clientCertPathObj = Paths.get(clientCertPath)
-	String clientCertFilename = clientCertPathObj.getFileName().toString()
     String hostname = GlobalVariable.hostname
-	String secretPath = "secret/${clientCertFilename}"
 	
-	VaultConfig config = new VaultConfig().address(System.getenv('VAULT_ADDR')).token(System.getenv('VAULT_TOKEN')).build()
-	
-	// You may choose not to provide a root token initially, if you plan to use
-	// the Vault driver to retrieve one programmatically from an auth backend.
-	// VaultConfig config = new VaultConfig().address('http://127.0.0.1:8200').build()
-	
-	final Vault vault = new Vault(config)
-	
-	// Read operation
-	final String certificatePassword = vault.logical()
-						   .read(secretPath)
-						   .getData().get("password")
+    String certificatePassword = GlobalVariable.certificatePassword
+    if (certificatePassword.isEmpty()) {
+        Path clientCertPathObj = Paths.get(clientCertPath)
+        String clientCertFilename = clientCertPathObj.getFileName().toString()
+        String secretPath = "secret/${clientCertFilename}"
+        
+        VaultConfig config = new VaultConfig().address(System.getenv('VAULT_ADDR')).token(System.getenv('VAULT_TOKEN')).build()
+        
+        // You may choose not to provide a root token initially, if you plan to use
+        // the Vault driver to retrieve one programmatically from an auth backend.
+        // VaultConfig config = new VaultConfig().address('http://127.0.0.1:8200').build()
+        
+        Vault vault = new Vault(config)
+    	certificatePassword = vault.logical()
+    						   .read(secretPath)
+    						   .getData().get("password")
+    }
     
+    println("Starting proxy...")
 	BrowserMobProxy proxy = new SslBrowserMobProxyServer(
         clientCertPath,
         certificatePassword,
