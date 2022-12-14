@@ -45,7 +45,7 @@ public class ClientCertFilter extends HttpsAwareFiltersAdapter {
 
         if (request.headers().get("Host").contains(hostname) &&
         request.method() != HttpMethod.CONNECT) {
-            System.out.println("Creating response...");
+            System.out.println("Creating response for ${request.getUri()}");
 
             FullHttpResponse nettyResponse;
             try {
@@ -114,20 +114,21 @@ public class ClientCertFilter extends HttpsAwareFiltersAdapter {
 
     @Override
     public InetSocketAddress proxyToServerResolutionStarted(String resolvingServerHostAndPort) {
-        System.out.println("In proxyToServerResolutionStarted...");
+        System.out.println("In proxyToServerResolutionStarted for ${resolvingServerHostAndPort}");
         return super.proxyToServerResolutionStarted(resolvingServerHostAndPort);
     }
 
     @Override
     public void proxyToServerResolutionFailed(String hostAndPort) {
-        System.out.println("In proxyToServerResolutionFailed...");
+        System.out.println("In proxyToServerResolutionFailed for ${hostAndPort}");
         super.proxyToServerResolutionFailed(hostAndPort);
     }
 
     @Override
     public void proxyToServerResolutionSucceeded(String serverHostAndPort, InetSocketAddress resolvedRemoteAddress) {
-        System.out.println("In proxyToServerResolutionSucceeded...");
+        System.out.println("In proxyToServerResolutionSucceeded for ${serverHostAndPort}");
         super.proxyToServerResolutionSucceeded(serverHostAndPort, resolvedRemoteAddress);
+        System.out.println("Resolved ${serverHostAndPort} to ${resolvedRemoteAddress}")
     }
 
     @Override
@@ -177,6 +178,7 @@ public class ClientCertFilter extends HttpsAwareFiltersAdapter {
     public HttpResponse filterRequest(HttpRequest request, String mediaType, ByteBuf content) throws NoSuchAlgorithmException, KeyManagementException, UnrecoverableKeyException, CertificateException, KeyStoreException, IOException {
         String uri = request.uri();
         String url = "https://" + request.headers().get("Host") + uri;
+        System.out.println("In filterRequest for ${request.method().name()} on URL: ${url}")
 
         Response intermediateResponse = doHttpsRequest(sslContext, url, request.method(), mediaType, content.array());
         assert intermediateResponse != null;
