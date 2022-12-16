@@ -33,7 +33,7 @@ public class ClientCertFilter extends HttpsAwareFiltersAdapter {
 
     @Override
     public HttpResponse clientToProxyRequest(HttpObject httpObject) {
-        System.out.println("In clientToProxyRequest...");
+//        System.out.println("In clientToProxyRequest...");
         return super.clientToProxyRequest(httpObject);
     }
 
@@ -66,19 +66,19 @@ public class ClientCertFilter extends HttpsAwareFiltersAdapter {
     //<editor-fold desc="Overrides">
     @Override
     public void proxyToServerRequestSending() {
-        System.out.println("In proxyToServerRequestSending...");
+//        System.out.println("In proxyToServerRequestSending...");
         super.proxyToServerRequestSending();
     }
 
     @Override
     public void proxyToServerRequestSent() {
-        System.out.println("In proxyToServerRequestSent...");
+//        System.out.println("In proxyToServerRequestSent...");
         super.proxyToServerRequestSent();
     }
 
     @Override
     public HttpObject serverToProxyResponse(HttpObject httpObject) {
-        System.out.println("In serverToProxyResponse...");
+//        System.out.println("In serverToProxyResponse...");
         return super.serverToProxyResponse(httpObject);
     }
 
@@ -90,19 +90,19 @@ public class ClientCertFilter extends HttpsAwareFiltersAdapter {
 
     @Override
     public void serverToProxyResponseReceiving() {
-        System.out.println("In serverToProxyResponseReceiving...");
+//        System.out.println("In serverToProxyResponseReceiving...");
         super.serverToProxyResponseReceiving();
     }
 
     @Override
     public void serverToProxyResponseReceived() {
-        System.out.println("In serverToProxyResponseReceived...");
+//        System.out.println("In serverToProxyResponseReceived...");
         super.serverToProxyResponseReceived();
     }
 
     @Override
     public HttpObject proxyToClientResponse(HttpObject httpObject) {
-        System.out.println("In proxyToClientResponse...");
+//        System.out.println("In proxyToClientResponse...");
         return super.proxyToClientResponse(httpObject);
     }
 
@@ -133,13 +133,13 @@ public class ClientCertFilter extends HttpsAwareFiltersAdapter {
 
     @Override
     public void proxyToServerConnectionStarted() {
-        System.out.println("In proxyToServerConnectionStarted...");
+//        System.out.println("In proxyToServerConnectionStarted...");
         super.proxyToServerConnectionStarted();
     }
 
     @Override
     public void proxyToServerConnectionSSLHandshakeStarted() {
-        System.out.println("In proxyToServerConnectionSSLHandshakeStarted...");
+//        System.out.println("In proxyToServerConnectionSSLHandshakeStarted...");
         super.proxyToServerConnectionSSLHandshakeStarted();
     }
 
@@ -151,7 +151,7 @@ public class ClientCertFilter extends HttpsAwareFiltersAdapter {
 
     @Override
     public void proxyToServerConnectionSucceeded(ChannelHandlerContext serverCtx) {
-        System.out.println("In proxyToServerConnectionSucceeded...");
+//        System.out.println("In proxyToServerConnectionSucceeded...");
         super.proxyToServerConnectionSucceeded(serverCtx);
     }
     //</editor-fold>
@@ -210,6 +210,7 @@ public class ClientCertFilter extends HttpsAwareFiltersAdapter {
                     }
                 };
         builder.hostnameVerifier(hostnameVerifier);
+        builder.addInterceptor(new SSLHandshakeInterceptor());
         OkHttpClient client = builder.build();
 
         Request request = new Request.Builder()
