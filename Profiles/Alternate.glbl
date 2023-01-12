@@ -6,17 +6,17 @@
    <defaultProfile>false</defaultProfile>
    <GlobalVariableEntity>
       <description></description>
-      <initValue>'/Users/coty/Code/katalon/demo/nodejs-ssl-trusted-peer-example/certs/client/my-app-client2.p12'</initValue>
+      <initValue>'/Users/coty/Code/katalon/certs/client.pfx'</initValue>
       <name>clientCertPath</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>
       <description></description>
-      <initValue>'secret'</initValue>
+      <initValue>'changeme'</initValue>
       <name>certificatePassword</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>
       <description></description>
-      <initValue>'client.example.com'</initValue>
+      <initValue>'TestClient'</initValue>
       <name>certificateCN</name>
    </GlobalVariableEntity>
 </GlobalVariableEntities>

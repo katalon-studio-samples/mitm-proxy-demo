@@ -93,7 +93,7 @@ if (GlobalVariable.proxy) {
     DriverFactory.changeWebDriver(driver)
 }
 
-WebUI.navigateToUrl('https://local.foobar3000.com:8043')
+WebUI.navigateToUrl(GlobalVariable.testUrl)
 
 WebUI.verifyElementText(findTestObject('Object Repository/Page/pre_Message'), "Hello, ${GlobalVariable.certificateCN}!")
 
