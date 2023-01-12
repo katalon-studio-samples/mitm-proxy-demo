@@ -40,70 +40,24 @@ import net.lightbody.bmp.proxy.jetty.util.*
 import javax.swing.JOptionPane as JOptionPane
 import javax.swing.JFrame as JFrame
 
-WebUI.openBrowser('')
-
 Proxy seleniumProxy = GlobalVariable.proxy
 
 if (seleniumProxy) {
-    WebUIDriverType driverType = DriverFactory.getExecutedBrowser()
+    EdgeOptions options = new EdgeOptions()
 
-    WebDriver driver = null
+    options.setProxy(seleniumProxy)
 
-    switch (driverType) {
-        case WebUIDriverType.CHROME_DRIVER:
-            ChromeOptions options = new ChromeOptions()
+    System.setProperty('webdriver.edge.driver', DriverFactory.getEdgeChromiumDriverPath())
 
-            options.setAcceptInsecureCerts(true)
-
-            options.setProxy(seleniumProxy)
-
-            System.setProperty('webdriver.chrome.driver', DriverFactory.getChromeDriverPath())
-
-            // start the browser up
-            driver = new ChromeDriver(options)
-
-            break
-        case WebUIDriverType.FIREFOX_DRIVER:
-            FirefoxOptions options = new FirefoxOptions()
-
-            options.setAcceptInsecureCerts(true)
-
-            options.setProxy(seleniumProxy)
-
-            // start the browser up
-            driver = new FirefoxDriver(options)
-
-            break
-        case WebUIDriverType.SAFARI_DRIVER:
-            throw new Exception('Safari is not currently supported!')
-            
-            break
-        case WebUIDriverType.EDGE_CHROMIUM_DRIVER:
-            EdgeOptions options = new EdgeOptions()
-
-            options.setCapability(CapabilityType.ACCEPT_INSECURE_CERTS, true)
-
-            options.setProxy(seleniumProxy)
-
-            System.setProperty('webdriver.edge.driver', DriverFactory.getEdgeChromiumDriverPath())
-
-            // start the browser up
-            driver = new EdgeDriver(options)
-
-            break
-    }
-    
+    // start the browser up
+    driver = new EdgeDriver(options)
     DriverFactory.changeWebDriver(driver)
 }
-
-// WebUI.navigateToUrl(GlobalVariable.testUrl)
 
 JFrame frame = new JFrame('User Input Frame')
 
 frame.requestFocus()
 
 result = JOptionPane.showConfirmDialog(frame, 'Routing through proxy at ' + seleniumProxy.getSslProxy())
-
-//WebUI.verifyElementText(findTestObject('Object Repository/Page/pre_Message'), "Hello, ${GlobalVariable.certificateCN}!")
 
 WebUI.closeBrowser()
